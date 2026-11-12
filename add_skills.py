@@ -54,9 +54,10 @@ def stuur(badge):
 
 def main():
     with open(BESTAND, newline="", encoding="utf-8-sig") as f:
-        scheiding = ";" if ";" in f.readline() else ","
-        f.seek(0)
-        rijen = list(csv.reader(f, delimiter=scheiding))
+        regels = f.read().splitlines()
+    eerste = next((r for r in regels if r.strip()), "")  # eerste niet-lege regel bepaalt het scheidingsteken
+    scheiding = ";" if ";" in eerste else ","
+    rijen = list(csv.reader(regels, delimiter=scheiding))
 
     badges = []
     for rij in rijen:
