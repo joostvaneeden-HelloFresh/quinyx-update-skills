@@ -58,7 +58,14 @@ def main():
         f.seek(0)
         rijen = list(csv.reader(f, delimiter=scheiding))
 
-    badges = [rij[0].strip() for rij in rijen[1:] if rij and rij[0].strip()]
+    badges = []
+    for rij in rijen:
+        if not rij or not rij[0].strip():
+            continue  # lege regels overslaan
+        waarde = rij[0].strip()
+        if waarde.lower() == "badge no.":
+            continue  # de kopregel overslaan
+        badges.append(waarde)
     print(f"{len(badges)} badgenummers gevonden.")
 
     for i, badge in enumerate(badges, 1):
