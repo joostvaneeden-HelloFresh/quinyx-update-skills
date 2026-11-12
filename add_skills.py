@@ -12,7 +12,7 @@ import urllib.request
 from xml.sax.saxutils import escape
 
 BESTAND = os.path.join(os.path.dirname(os.path.abspath(__file__)), "badges.csv")
-ENDPOINT = "https://api.quinyx.com/soap/FlexForce"
+ENDPOINT = "https://api.quinyx.com/FlexForceWebServices.php"
 API_KEY = os.environ["QUINYX_API_KEY"]
 SKILL_ID = 88298
 
