@@ -59,14 +59,16 @@ def main():
     scheiding = ";" if ";" in eerste else ","
     rijen = list(csv.reader(regels, delimiter=scheiding))
 
+    # Alles tot en met de kopregel "Badge no." overslaan (er kan een titelregel boven staan).
+    kop = next((i for i, rij in enumerate(rijen) if rij and rij[0].strip().lower() == "badge no."), None)
+    if kop is None:
+        raise SystemExit("Kopregel 'Badge no.' niet gevonden in kolom A van badges.csv.")
+
     badges = []
-    for rij in rijen:
+    for rij in rijen[kop + 1:]:
         if not rij or not rij[0].strip():
             continue  # lege regels overslaan
-        waarde = rij[0].strip()
-        if waarde.lower() == "badge no.":
-            continue  # de kopregel overslaan
-        badges.append(waarde)
+        badges.append(rij[0].strip())
     print(f"{len(badges)} badgenummers gevonden.")
 
     for i, badge in enumerate(badges, 1):
